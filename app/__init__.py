@@ -1,7 +1,7 @@
 # app/__init__.py
 import os
 from flask import Flask
-from AWSTranslationService.config import app_config
+from config import app_config
 
 
 def create_app(config_name):
@@ -9,7 +9,8 @@ def create_app(config_name):
     app.config.from_object(app_config[config_name.strip()])
     app.config.from_pyfile('../config.py')
 
-    # register blueprints here
+    from app.translate import bp as translate_bp
+    app.register_blueprint(translate_bp)
 
     return app
 
@@ -17,4 +18,4 @@ def create_app(config_name):
 config_name = os.getenv('APP_SETTINGS') # config_name = "development"
 app = create_app(config_name)
 
-from app import routes
+# from app import routes
