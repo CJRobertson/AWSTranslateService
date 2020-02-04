@@ -30,7 +30,7 @@ APP_SETTINGS=development
 ```
 
 ## Starting Gunicorn
-You can use the following command if you're just wanting to run this application on a single server without containerization. This command assumes you have navigated to the root directory of the translate service. Note that you must have enviroment variables setup otherwise it'll error out.
+You can use the following command if you're wanting to run this application on a single server without containerization. This command assumes you have navigated to the root directory of the translate service. The :5000 port is where Gunicorn is looking for requests, but this can be changed to any desired port. Note that you must have environment variables setup otherwise the command will error out.
 ```
 gunicorn -b :5000 --access-logfile - --error-logfile - app:app
 ```
