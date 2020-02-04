@@ -38,5 +38,5 @@ gunicorn -b :5000 --access-logfile - --error-logfile - app:app
 ## Docker
 Running a docker image consists of using the below command if not utilizing something like Kubernetes. By default, the IP address is 0.0.0.0 which points to the local host. The :8000 port routes incoming request to the Gunicorn web server on port :5000. Both of these can be changed as needed.
 ```
-docker run --env-file=.env -p 0.0.0.0:8000:5000 -d *image ID*
+docker run --env-file=*environment variable file* -p 0.0.0.0:8000:5000 -d *image ID*
 ```
