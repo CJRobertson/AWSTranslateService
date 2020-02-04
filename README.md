@@ -29,11 +29,14 @@ AWS_SECRET_ACCESS_KEY=ACCESS KEY
 APP_SETTINGS=development
 ```
 
-
 ## Starting Gunicorn
-You can use the following command if you're just wanting to run this application on a single server without containerization. This command assumes you have navigated to the root directory of the translate service. 
-Note that you must have enviroment variables setup otherwise it'll error out.
+You can use the following command if you're just wanting to run this application on a single server without containerization. This command assumes you have navigated to the root directory of the translate service. Note that you must have enviroment variables setup otherwise it'll error out.
 ```
 gunicorn -b :5000 --access-logfile - --error-logfile - app:app
 ```
 
+## Docker
+Running a docker image consists of using the below command if not utilizing something like Kubernetes. By default, the IP address is 0.0.0.0 which points to the local host. The :8000 port routes incoming request to the Gunicorn web server on port :5000. Both of these can be changed as needed.
+```
+docker run --env-file=.env -p 0.0.0.0:8000:5000 -d *image ID*
+```
