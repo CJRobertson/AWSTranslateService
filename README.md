@@ -13,8 +13,7 @@ flask application. The flask application accepts a JSON formatted POST request a
    - cerberus (error handling)
 
 # Usage
-There are two ways to go about using this interface. You can either run the Gunicorn web server directly on something like an EC2 instance from Amazon,
-or you can run it in a container system like Kubernetes. Both of these will require environment variables for the application to run correctly.
+There are two ways to go about using this application. You can either run the Gunicorn web server directly on something like an EC2 instance from Amazon, or you can run it in a container system like Kubernetes. Both of these will require environment variables for the application to run correctly.
 
 ## Environment Variables
 ```
@@ -23,7 +22,7 @@ export AWS_SECRET_ACCESS_KEY="ACCESS KEY"
 export APP_SETTINGS="development" (or can be switched to production)
 ```
 
-If you are attempting to build a docker image, then the same enviornment variables should be used, but the format should like this before creating the docker image.
+The same enviornment variables should be used if you are wanting to use containerzation, but the format should look like the following before creating the docker image.
 ```
 AWS_ACCESS_KEY_ID=KEY ID
 AWS_SECRET_ACCESS_KEY=ACCESS KEY
@@ -32,7 +31,7 @@ APP_SETTINGS=development
 
 
 ## Starting Gunicorn
-You can use the following command if you're just wanting to run this on a single server without containerization. This command assumes you have navigated to the root directory of the translate service. 
+You can use the following command if you're just wanting to run this application on a single server without containerization. This command assumes you have navigated to the root directory of the translate service. 
 Note that you must have enviroment variables setup otherwise it'll error out.
 ```
 gunicorn -b :5000 --access-logfile - --error-logfile - app:app
