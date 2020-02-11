@@ -4,9 +4,18 @@ from app.translate import bp
 from cerberus import Validator
 
 schema = {
-    'textToTranslate': {'type': 'string'},
-    'source_lang': {'type': 'string'},
-    'dest_lang': {'type': 'string'},
+    'src_lang': { 'type': 'string' },
+    'dest_lang': { 'type': 'string' },
+    'messages': { 
+        'type': 'list', 
+        'schema': {
+            'type': 'dict',
+            'schema': {
+                'id': { 'type': 'string' },
+                'content': { 'type': 'string' }
+            }
+        }
+    }
 }
 
 valid_schema = Validator(schema)
@@ -42,4 +51,8 @@ def translate_text():
     data = request.get_json()
     if not valid_schema.validate(data):
         raise InvalidPayload('Malformed JSON', status_code=422)
-    return jsonify({'translatedText': translator.process_text(data['textToTranslate'], data['source_lang'], data['dest_lang'])})
+
+    for i in data['messages']:
+        i['translation'] = translator.process_text(i['content'], data['src_lang'], data['dest_lang'])
+
+    return jsonify(data)
